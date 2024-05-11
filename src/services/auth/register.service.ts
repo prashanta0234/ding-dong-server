@@ -36,12 +36,14 @@ const RegisterService = async (data: RegisterSchemaType) => {
 
 		counter++;
 	}
-	const hashedPass = bcrypt.hash(data.password, 10);
+	const hashedPass = await bcrypt.hash(data.password, 10);
+	// data.password = hashedPass;
 
-	const result = UserModel.create({
+	const result = await UserModel.create({
 		...data,
 		avatar,
 		userName: uniqueUsername,
+		password: hashedPass,
 	});
 	console.log(result);
 

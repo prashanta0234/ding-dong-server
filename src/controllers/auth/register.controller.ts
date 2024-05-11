@@ -8,7 +8,7 @@ export const register = TryCatch(async (req: Request, res: Response) => {
 	res.cookie("user-token", result, { maxAge: 1000 * 60 * 60 * 24 * 15 });
 
 	SendSuccessResponse(res, {
-		status: 200,
+		status: 201,
 		message: "User Created successfully",
 		data: {
 			message: "User Created successfully",
