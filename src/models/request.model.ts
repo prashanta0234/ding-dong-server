@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Schema, Types, model, models } from "mongoose";
 
 enum statusEnum {
@@ -17,4 +18,5 @@ const requestSchema = new Schema(
 	}
 );
 
-export const MessageModel = models.Request || model("Request", requestSchema);
+export const MessageModel =
+	mongoose.models.Request || mongoose.model("Request", requestSchema);

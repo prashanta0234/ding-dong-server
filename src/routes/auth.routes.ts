@@ -1,8 +1,18 @@
 import { Router } from "express";
-import { login } from "../controllers/auth/login.controller";
+import { register } from "../controllers/auth/register.controller";
+import { registerSchema } from "../utils/schemas/auth/register.schema";
+import { GlobalValidation } from "../middlewares/globalValidation";
+import multer from "multer";
+
+const upload = multer({ dest: "uploads/" });
 
 const userRoutes = Router();
 
-userRoutes.get("/login", login);
+userRoutes.post(
+	"/register",
+	upload.single("avatar"),
+	GlobalValidation(registerSchema),
+	register
+);
 
 export { userRoutes };
