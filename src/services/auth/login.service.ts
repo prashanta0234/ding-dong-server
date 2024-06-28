@@ -21,6 +21,7 @@ export const LoginService = async (data: LoginSchemaType) => {
 	const payload = {
 		name,
 		userName: user.userName,
+		id: user._id,
 	};
 
 	const token = jwt.sign(payload, JWT_SECRET!);

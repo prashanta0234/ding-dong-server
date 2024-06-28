@@ -8,6 +8,8 @@ import { ChatModel } from "./models/chat.model";
 import { MessageModel } from "./models/message.model";
 import { UserModel } from "./models/user.model";
 import { GlobalErrorHandler } from "./middlewares/global-error-validation";
+import { ChatRoute } from "./routes/chat.routes";
+import { IsAuthenticated } from "./middlewares/isAuthenticated";
 
 export const app = express();
 
@@ -18,6 +20,8 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use("/auth", userRoutes);
+app.use(IsAuthenticated);
+app.use("/chat", ChatRoute);
 
 app.use(GlobalErrorHandler);
 

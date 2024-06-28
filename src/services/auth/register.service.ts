@@ -51,6 +51,7 @@ const RegisterService = async (data: RegisterSchemaType) => {
 	const payload = {
 		name,
 		userName: uniqueUsername,
+		id: result._id,
 	};
 	const token = jwt.sign(payload, JWT_SECRET!);
 

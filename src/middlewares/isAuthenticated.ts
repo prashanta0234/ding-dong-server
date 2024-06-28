@@ -13,7 +13,7 @@ export const IsAuthenticated = TryCatch(async (req, __, next) => {
 	const token = req.cookies["user-token"];
 	// console.log(cookie);
 	const user = jwt.verify(token, JWT_SECRET!) as JwtPayload;
-	console.log(req);
-	req.user = user.userName;
+
+	req.user = user;
 	next();
 });

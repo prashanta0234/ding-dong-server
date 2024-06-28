@@ -4,7 +4,7 @@ const chatSchema = new Schema(
 	{
 		name: { type: String, required: true },
 		creator: { type: Types.ObjectId, ref: "User" },
-		members: [{ type: Types.ObjectId, required: true }],
+		members: [{ type: Types.ObjectId, required: true, ref: "User" }],
 		avatar: {
 			publicId: {
 				type: String,
