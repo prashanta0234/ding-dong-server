@@ -20,8 +20,6 @@ export const CreateGroupService = async (
 
 	const allMembers = [...data.members, user];
 
-	console.log(allMembers);
-
 	const avatar = {
 		url: "demo",
 		publicId: "demo public id",

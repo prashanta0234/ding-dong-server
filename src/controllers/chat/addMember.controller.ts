@@ -6,8 +6,8 @@ export const AddMemberInChatController = TryCatch(async (req, res) => {
 	const result = await AddMemberChatService(req.body);
 
 	SendSuccessResponse(res, {
-		message: "Added",
-		data: "Added member in chat",
+		message: " Member added!",
+		data: result,
 		status: 201,
 	});
 });
