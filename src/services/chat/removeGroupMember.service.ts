@@ -1,13 +1,13 @@
 import { ChatModel } from "../../models/chat.model";
 import { ErrorMaker } from "../../utils/error-maker";
 
-interface removeChatType {
+interface removeChatProps {
 	user: string;
 	chatId: string;
 	memberId: string;
 }
 
-export const removeGroupMemberService = async (data: removeChatType) => {
+export const removeGroupMemberService = async (data: removeChatProps) => {
 	const chats = await ChatModel.findOne({
 		_id: data.chatId,
 	});
