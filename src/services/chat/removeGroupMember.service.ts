@@ -1,5 +1,8 @@
+import { Request } from "express";
 import { ChatModel } from "../../models/chat.model";
 import { ErrorMaker } from "../../utils/error-maker";
+import { EmitEvent } from "../../utils/emit-event";
+import { EventType } from "../../constants/event-type";
 
 interface removeChatProps {
 	user: string;
@@ -7,7 +10,10 @@ interface removeChatProps {
 	memberId: string;
 }
 
-export const removeGroupMemberService = async (data: removeChatProps) => {
+export const removeGroupMemberService = async (
+	data: removeChatProps,
+	req: Request
+) => {
 	const chats = await ChatModel.findOne({
 		_id: data.chatId,
 	});
@@ -40,5 +46,13 @@ export const removeGroupMemberService = async (data: removeChatProps) => {
 		createdAt: 0,
 		__v: 0,
 	});
+
+	EmitEvent(
+		req,
+		EventType.ALERT,
+		successData.members,
+		"Admin added a user in the group"
+	);
+	EmitEvent(req, EventType.REFETCH_CHAT, successData.members);
 	return successData;
 };

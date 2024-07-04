@@ -3,11 +3,14 @@ import { SendSuccessResponse } from "../../utils/responseHelper";
 import { TryCatch } from "../../utils/try-catch";
 
 export const RemoveMemberInChatController = TryCatch(async (req, res) => {
-	const result = await removeGroupMemberService({
-		chatId: req.body.chatId,
-		memberId: req.body.memberId,
-		user: req.user.id,
-	});
+	const result = await removeGroupMemberService(
+		{
+			chatId: req.body.chatId,
+			memberId: req.body.memberId,
+			user: req.user.id,
+		},
+		req
+	);
 
 	SendSuccessResponse(res, {
 		message: "Member removed!",

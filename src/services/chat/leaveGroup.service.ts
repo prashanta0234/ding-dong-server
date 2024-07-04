@@ -1,11 +1,17 @@
+import { Request } from "express";
 import { ChatModel } from "../../models/chat.model";
+import { EmitEvent } from "../../utils/emit-event";
+import { EventType } from "../../constants/event-type";
 
 interface leaveGroupProps {
 	userId: string;
 	chatId: string;
 }
 
-export const LeaveGroupService = async (data: leaveGroupProps) => {
+export const LeaveGroupService = async (
+	data: leaveGroupProps,
+	req: Request
+) => {
 	const chat = await ChatModel.findOne({
 		_id: data.chatId,
 	}).select({
@@ -26,5 +32,7 @@ export const LeaveGroupService = async (data: leaveGroupProps) => {
 			{ $pull: { members: data.userId } }
 		);
 	}
+	const restMembers = chat.members.filter((mem: string) => mem != data.userId);
+	EmitEvent(req, EventType.ALERT, restMembers, "A member leave the group");
 	return "Leave successfully!";
 };

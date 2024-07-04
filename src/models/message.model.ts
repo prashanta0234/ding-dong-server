@@ -1,10 +1,9 @@
 import mongoose, { Schema, Types, model, models } from "mongoose";
 
-const chatSchema = new Schema(
+const messageSchema = new Schema(
 	{
-		name: { type: String, required: true },
 		sender: { type: Types.ObjectId, ref: "User" },
-		chat: { type: Types.ObjectId, ref: "Chat" },
+		chatId: { type: Types.ObjectId, ref: "Chat" },
 		members: [{ type: Types.ObjectId, required: true }],
 		attachment: [
 			{
@@ -26,4 +25,4 @@ const chatSchema = new Schema(
 );
 
 export const MessageModel =
-	mongoose.models.Messages || mongoose.model("Messages", chatSchema);
+	mongoose.models.Messages || mongoose.model("Messages", messageSchema);

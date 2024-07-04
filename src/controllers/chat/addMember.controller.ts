@@ -3,7 +3,7 @@ import { SendSuccessResponse } from "../../utils/responseHelper";
 import { TryCatch } from "../../utils/try-catch";
 
 export const AddMemberInChatController = TryCatch(async (req, res) => {
-	const result = await AddMemberChatService(req.body);
+	const result = await AddMemberChatService(req.body, req);
 
 	SendSuccessResponse(res, {
 		message: " Member added!",

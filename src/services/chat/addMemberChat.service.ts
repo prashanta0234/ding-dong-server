@@ -1,4 +1,7 @@
+import { Request } from "express";
+import { EventType } from "../../constants/event-type";
 import { ChatModel } from "../../models/chat.model";
+import { EmitEvent } from "../../utils/emit-event";
 import { ErrorMaker } from "../../utils/error-maker";
 
 interface AddMemberProps {
@@ -6,7 +9,10 @@ interface AddMemberProps {
 	memberId: string;
 }
 
-export const AddMemberChatService = async (data: AddMemberProps) => {
+export const AddMemberChatService = async (
+	data: AddMemberProps,
+	req: Request
+) => {
 	const getChat = await ChatModel.findOne({
 		_id: data.chatId,
 	});
@@ -31,6 +37,15 @@ export const AddMemberChatService = async (data: AddMemberProps) => {
 		);
 	}
 
+	const allMembers = [...getChat.members, data.memberId];
 	getChat.members.push(data.memberId);
 	getChat.save();
+
+	EmitEvent(
+		req,
+		EventType.ALERT,
+		allMembers,
+		"Admin added a user in the group"
+	);
+	EmitEvent(req, EventType.REFETCH_CHAT, allMembers);
 };

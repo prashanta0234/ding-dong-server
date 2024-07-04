@@ -5,6 +5,8 @@ import { GetGroupChatController } from "../controllers/chat/getGroupChats.contro
 import { AddMemberInChatController } from "../controllers/chat/addMember.controller";
 import { RemoveMemberInChatController } from "../controllers/chat/removeMember.controller";
 import { LeaveGroupController } from "../controllers/chat/leaveGroup.controller";
+import { upload } from "../utils/helpers";
+import { SendAttachmentController } from "../controllers/chat/sendAttachment.controller";
 
 export const ChatRoute = Router();
 
@@ -14,3 +16,8 @@ ChatRoute.get("/group", GetGroupChatController);
 ChatRoute.post("/group/add-member", AddMemberInChatController);
 ChatRoute.delete("/group/remove-member", RemoveMemberInChatController);
 ChatRoute.delete("/group/leave-group", LeaveGroupController);
+ChatRoute.post(
+	"/send-attachment",
+	upload.array("files"),
+	SendAttachmentController
+);

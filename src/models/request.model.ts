@@ -18,5 +18,5 @@ const requestSchema = new Schema(
 	}
 );
 
-export const MessageModel =
+export const RequestModel =
 	mongoose.models.Request || mongoose.model("Request", requestSchema);
